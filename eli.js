@@ -1016,46 +1016,6 @@ function enableScroll() {
 }
 
 
-
-// TAB
-document.querySelectorAll('.tabs a').forEach(item => {
-  item.style.cursor = "pointer";
-  item.addEventListener('click', async function (e) {
-    e.preventDefault();
-
-    var tabref = this.getAttribute('href') || this.getAttribute('tabhref');
-    
-    if(this.parentElement.parentElement.querySelectorAll('li.active').length){
-      this.parentElement.parentElement.querySelectorAll('li.active').forEach(itm=>{
-        itm.classList.remove('active');
-      })
-    }
-
-
-    if(document.querySelector(tabref+".tab-content").parentElement.querySelectorAll('.tab-content.active').length){
-      document.querySelector(tabref+".tab-content").parentElement.querySelectorAll('.tab-content.active').forEach(itm=>{
-        itm.classList.remove('active');
-      })
-    }
-
- // console.log(e);
-    if(e.target.parentElement.nodeName === 'LI'){
-      e.target.parentElement.classList.add("active");
-    }
-
-    var tabcontent = e.target.getAttribute('href') || e.target.getAttribute('tabhref');
-    tabcontent = tabcontent.trim();
-    // console.log(tabcontent);
-    var tabc = document.querySelector(".tab-content"+tabcontent);
-    // console.log(tabc);
-    if(tabc){
-      tabc.classList.add("active");
-    }
-
- });
-})
-
-
 // search result
 function searchResultClicked(field){
   console.log(field);
@@ -1444,90 +1404,6 @@ Array.from(document.querySelectorAll('input[type=file]:not(.default)')).forEach(
 
 
 
-
-// MODAL
-
-window.modal = function(modalid,action){
-  if(modalid){
-    switch(action){
-      case "open":
-        document.querySelector(modalid).classList.add('active');
-          var modcont = document.querySelector(modalid).children[0];
-          var modheight = modcont.offsetHeight;
-          var winheight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-          console.log(modheight + ' - ' + winheight);
-          if(modheight >= winheight){
-              document.querySelector(modalid).classList.add('large');
-          }
-          closemodalon();
-      break;
-      case "close":
-        document.querySelector(modalid).classList.remove('active');
-      break;
-      default:
-        document.querySelector(modalid).classList.add('active');
-      break;
-    }
-  }
-}
-
-window.closeAllModal = function(){
-    document.querySelector('.modal.active').classList.remove('active');
-}
-
-window.closemodalon = function(){
-  document.querySelector('.modal.active').addEventListener('click', function (e) {
-    var mod = e.target.classList.contains('modal');
-    if(mod == true){
-      modal('#'+e.target.id,'close');
-    }
-  });
-
-  document.addEventListener('keydown', function (e) {
-  //  console.log(e);
-    if(e.key === "Escape") {
-            var mod = document.querySelector('.modal.active');
-            if(mod){
-              modal('#'+mod.id,'close');
-            }
-        }
-
-  });
-}
-
-// Open Modal
-Array.from(document.querySelectorAll('.modal-target')).forEach((item) => {
-item.addEventListener('click', function (e) {
-e.preventDefault();
-  var href = item.getAttribute('href');
-  var dtarget = item.getAttribute('modal-target');
-
-  if(href){
-    modal(href,'open');
-    UpdateFields();
-  }
-  else if (dtarget) {
-    modal(dtarget,'open');
-    UpdateFields();
-  }
-  else {
-    console.log('Unable to Specify Modal Target or href');
-  }
-
-  });
-})
-
-
-
-// Close Modal
-Array.from(document.querySelectorAll('.modal .modalclosebtn')).forEach((item) => {
-  item.addEventListener('click', function (e) {
-    if(e.target.parentNode.parentNode.id){
-      var modal = e.target.parentNode.parentNode.id;
-      document.querySelector('#'+modal).classList.remove('active');
-    }
-  });
-})
 
 
 
@@ -3886,6 +3762,212 @@ function elislider(elem,option){
 }
 
 
+function initTabs(){
+	// TAB
+	document.querySelectorAll('.tabs a').forEach(item => {
+	  item.style.cursor = "pointer";
+	  item.addEventListener('click', async function (e) {
+	    e.preventDefault();
+
+	    var tabref = this.getAttribute('href') || this.getAttribute('tabhref');
+	    
+	    if(this.parentElement.parentElement.querySelectorAll('li.active').length){
+	      this.parentElement.parentElement.querySelectorAll('li.active').forEach(itm=>{
+	        itm.classList.remove('active');
+	      })
+	    }
+
+
+	    if(document.querySelector(tabref+".tab-content").parentElement.querySelectorAll('.tab-content.active').length){
+	      document.querySelector(tabref+".tab-content").parentElement.querySelectorAll('.tab-content.active').forEach(itm=>{
+	        itm.classList.remove('active');
+	      })
+	    }
+
+	 // console.log(e);
+	    if(e.target.parentElement.nodeName === 'LI'){
+	      e.target.parentElement.classList.add("active");
+	    }
+
+	    var tabcontent = e.target.getAttribute('href') || e.target.getAttribute('tabhref');
+	    tabcontent = tabcontent.trim();
+	    // console.log(tabcontent);
+	    var tabc = document.querySelector(".tab-content"+tabcontent);
+	    // console.log(tabc);
+	    if(tabc){
+	      tabc.classList.add("active");
+	    }
+
+	 });
+	})
+
+}
+
+
+// MODAL
+function initModal(){
+
+window.modal = function(modalid,action){
+  if(modalid){
+    switch(action){
+      case "open":
+        document.querySelector(modalid).classList.add('active');
+          var modcont = document.querySelector(modalid).children[0];
+          var modheight = modcont.offsetHeight;
+          var winheight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+          console.log(modheight + ' - ' + winheight);
+          if(modheight >= winheight){
+              document.querySelector(modalid).classList.add('large');
+          }
+          closemodalon();
+      break;
+      case "close":
+        document.querySelector(modalid).classList.remove('active');
+      break;
+      default:
+        document.querySelector(modalid).classList.add('active');
+      break;
+    }
+  }
+}
+
+window.closeAllModal = function(){
+    document.querySelector('.modal.active').classList.remove('active');
+}
+
+window.closemodalon = function(){
+  document.querySelector('.modal.active').addEventListener('click', function (e) {
+    var mod = e.target.classList.contains('modal');
+    if(mod == true){
+      modal('#'+e.target.id,'close');
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+  //  console.log(e);
+    if(e.key === "Escape") {
+            var mod = document.querySelector('.modal.active');
+            if(mod){
+              modal('#'+mod.id,'close');
+            }
+        }
+
+  });
+}
+
+	// Open Modal
+	Array.from(document.querySelectorAll('.modal-target')).forEach((item) => {
+	item.addEventListener('click', function (e) {
+	e.preventDefault();
+	  var href = item.getAttribute('href');
+	  var dtarget = item.getAttribute('modal-target');
+
+	  if(href){
+	    modal(href,'open');
+	    UpdateFields();
+	  }
+	  else if (dtarget) {
+	    modal(dtarget,'open');
+	    UpdateFields();
+	  }
+	  else {
+	    console.log('Unable to Specify Modal Target or href');
+	  }
+
+	  });
+	})
+
+
+
+	// Close Modal
+	Array.from(document.querySelectorAll('.modal .modalclosebtn')).forEach((item) => {
+	  item.addEventListener('click', function (e) {
+	    if(e.target.parentNode.parentNode.id){
+	      var modal = e.target.parentNode.parentNode.id;
+	      document.querySelector('#'+modal).classList.remove('active');
+	    }
+	  });
+	})
+
+}
+
+// === Eli.js =========
+
+const scriptSrc = document.currentScript?.src || '';
+const jspath = scriptSrc.replace(/eli(\.min)?\.js$/, '');
+
+function toast(){
+  let body = document.body;
+  var script = '<div class="toast result"></div>'
+  body.innerHTML += script;
+  console.log('%c✔ %cEli: Site Ready!', 'color: green; font-size: 16px;', 'background: green; color: white; padding: 8px;');
+}
+
+function RunScript(selector,jsscript){
+  target = document.querySelector(selector);
+  var newScript = document.createElement("script");
+  var inlineScript = document.createTextNode(jsscript);
+  newScript.appendChild(inlineScript);
+  target.appendChild(newScript);
+}
+
+async function checkMobility() {
+  // Add responsive meta tag if not present
+  if (!document.querySelector('meta[name="viewport"]')) {
+    const meta = document.createElement('meta');
+    meta.name = "viewport";
+    meta.content = "width=device-width, initial-scale=1.0";
+    document.head.prepend(meta);
+  }
+
+  // Add favicon
+  const faviconPrimary = "assets/img/logo.png";
+  const faviconFallback = jspath + "elilogo.png";
+
+  if (!document.querySelector('link[rel="icon"]')) {
+    try {
+      const response = await fetch(faviconPrimary, { method: 'HEAD' });
+      const faviconLink = document.createElement('link');
+      faviconLink.rel = "icon";
+      faviconLink.type = "image/png";
+      faviconLink.href = response.ok ? faviconPrimary : faviconFallback;
+      document.head.appendChild(faviconLink);
+    } catch (error) {
+      console.error("Error checking favicon:", error);
+    }
+  }
+}
+
+
+function eliloader(element, duration) {
+  // Define keyframes
+  var keyframes = [
+    { opacity: 0 },
+    { opacity: 1 }
+  ];
+
+  // Define animation options
+  var options = {
+    duration: duration || 1000,
+    easing: 'ease-in-out'
+  };
+
+  // Create the animation
+  var animation = element.animate(keyframes, options);
+
+  // Set the element's opacity to 0 initially
+  element.style.opacity = 1;
+
+  // Play the animation
+  animation.play();  
+  document.querySelector('body.loading').classList.remove("loading");
+}
+
+
+
+
+//=====================
+
 // Automatically include eli.css in the head
 const scriptPath = document.currentScript.src;
 const cssPath = scriptPath.replace(/\/[^/]*$/, '/eli.css');
@@ -3893,3 +3975,60 @@ const link = document.createElement('link');
 link.rel = 'stylesheet';
 link.href = cssPath;
 document.head.appendChild(link);
+
+
+function eli_autorun(){
+	toast();
+	elitable(".edt").init();
+    setTimeout(function(){ searchable(".eli-searchable").searchable(); searchable(".eli-searchable-select").selectbox() },1000);
+
+	setTimeout(function(){
+		new elislider();	
+	    window.addEventListener('resize',()=>{
+	      new elislider();
+	    });
+	    initTabs();
+	    initModal();
+	},500);
+
+
+  	 //  Custom Code
+   	 if(document.querySelector('.input-field')){
+          document.querySelectorAll('.input-field > label').forEach( function(item, index) {
+            item.classList.add('active');
+          });
+          setTimeout(UpdateFields,1000);
+      }
+
+      // FormBTN
+      if(document.querySelector('formbtn')){
+        document.querySelectorAll('formbtn').forEach(fbtn=>{
+        fbtn.addEventListener("click",function(e){
+          eliFormBTN(fbtn);
+        })
+        })
+      }
+
+
+   checkMobility();
+   
+	// == Loading ==
+	 eliloader(document.querySelector("body",100));
+	// run autorun after load
+	if (typeof autorun === "function") {
+	// safe to use the function
+		autorun();
+	}
+	//============= 
+
+
+}
+
+
+window.addEventListener('load', async function(){
+	  // run eli_autorun after load
+	  if (typeof eli_autorun === "function") {
+	    // safe to use the function
+	    eli_autorun();
+	  }
+})
