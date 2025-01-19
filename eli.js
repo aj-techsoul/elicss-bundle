@@ -3960,7 +3960,7 @@ function eliloader(element, duration) {
 
   // Play the animation
   animation.play();  
-  document.querySelector('body.loading').classList.remove("loading");
+  document.querySelector('body.loading')?.classList.remove("loading");
 }
 
 
