@@ -1661,6 +1661,7 @@ nav.addEventListener('click', function(e) {
 
 
 // Toggle element visibility
+function initCollapsible(){
 // Show an element
 var show = async function (elem,timing) {
 if(typeof elem === 'string'){
@@ -1770,6 +1771,8 @@ if(typeof elem === 'object'){
 //   }
 
 // };
+
+
 
 // sidebar
 // Show an element
@@ -1903,7 +1906,7 @@ if(collapsible.length > 0){
       })
   })
 }
-
+}
 // Collapse End
 
 // Copy to Clipboard
@@ -3989,6 +3992,7 @@ function eli_autorun(){
 	    });
 	    initTabs();
 	    initModal();
+	    initCollapsible();
 	},500);
 
 
